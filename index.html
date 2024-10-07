@@ -303,17 +303,27 @@
                     <div id="modal_content">
 
                     </div>
-                    <div class="modal-action">
-                        <form method="dialog">
+                    <div class="modal-action ">
+                        <form method="dialog" class="w-full">
                             <button
-                                class="btn border border-primary bg-transparent text-primary font-bold px-5 text-xl">Close</button>
+                                class="btn border border-primary hover:bg-primary hover:text-white bg-transparent w-full text-primary font-bold px-5 text-xl">Close</button>
                         </form>
                     </div>
+                </div>
+            </dialog>
+            <dialog id="my_modal_1" class="modal">
+                <div class="modal-box p-10 flex flex-col justify-center items-center gap-4">
+                    <i class="fa-solid fa-circle-check text-7xl text-primary"></i>
+                    <h3 class="text-4xl font-bold">Congrats</h3>
+                    <p class="capitalize font-semibold text-lg">Adoption Process is start for your pet</p>
+                    <p id="timer" class="capitalize font-black text-7xl">3</p>
                 </div>
             </dialog>
 
         </section>
     </main>
+    <!-- Open the modal using ID.showModal() method -->
+
     <footer class=" bg-black text-white">
         <div
             class="w-11/12 mx-auto py-10 grid lg:grid-cols-3 sm:gap-5 gap-10 sm:justify-between justify-center items-start">

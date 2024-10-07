@@ -104,7 +104,7 @@ async function fetchSingleCategories(category) {
                              class="btn px-5 bg-transparent text-secondary border-primary text-2xl">
                              <i class="fa-solid fa-thumbs-up"></i></button>
                             <button
-                            onclick="adoptPet(${ petId })"
+                            onclick="adoptPet(this)"
                                 class="btn border border-primary bg-transparent text-primary font-bold px-5 text-xl">Adopt</button>
                             <button
                             onclick="showDetails(${ petId })"
@@ -115,44 +115,48 @@ async function fetchSingleCategories(category) {
         `
             })
         }
-    }, 20) // TODO: need to change 2000
+    }, 2000)
 }
 const likeContainerEl = document.getElementById('like_container')
 likeContainerEl.innerHTML = ''
 
 async function likePet(img, e) {
-    e.classList.add("bg-green-800", "text-white");
+    e.classList.add('bg-green-800', 'text-white')
     likeContainerEl.innerHTML += `
     <div class="rounded-lg border-2 h-28 flex justify-center items-center shadow-md">
          <img class="rounded-lg p-1" src=${ img } alt="">
     </div>`
 }
 
-async function adoptPet(pet) {
-    // const {
-    //     petId,
-    //     breed,
-    //     category,
-    //     date_of_birth,
-    //     price,
-    //     image,
-    //     gender,
-    //     pet_details,
-    //     vaccinated_status,
-    //     pet_name,
-    // } = item || {}
+async function adoptPet(e) {
+    const timerEl = document.getElementById('timer')
+    const modal = document.getElementById('my_modal_1')
+
+    // Show the modal
+    modal.showModal()
+
+    let timeLeft = 3
+    timerEl.innerText = timeLeft
+
+    const countdown = setInterval(() => {
+        timeLeft--
+        timerEl.innerText = timeLeft
+    }, 1000)
+
+    setTimeout(() => {
+        clearInterval(countdown)
+        modal.close()
+        e.setAttribute('disabled', true)
+    }, 3000)
 }
-// document.getElementById('my_modal_5').showModal()
+
 async function showDetails(id) {
     const res = await fetch(
         `https://openapi.programming-hero.com/api/peddy/pet/${ id }`,
     )
     const data = await res.json()
-    console.log(data)
-
     const {
         breed,
-        category,
         date_of_birth,
         price,
         image,
@@ -171,22 +175,28 @@ async function showDetails(id) {
                         <div class="grid grid-cols-2 justify-between gap-2 ">
                             <p class="text-lg font-bold">
                                 <i class="fa-solid fa-border-all"></i>
-                                Breed: <span>${ breed ? breed : 'Not Available' }</span>
+                                Breed: <span>${ breed ? breed : 'Not Available'
+        }</span>
                             </p>
                             <p class="text-lg font-bold">
                                 <i class="fa-regular fa-calendar"></i>
                                 Birth:
                                 <span>
-                                ${ date_of_birth ? date_of_birth : 'Not Available' }
+                                ${ date_of_birth
+            ? date_of_birth
+            : 'Not Available'
+        }
                                 </span>
                             </p>
                             <p class="text-lg font-bold">
                                 <i class="fa-solid fa-mercury"></i>
-                                Gender: <span>${ gender ? gender : 'Not Available' }</span>
+                                Gender: <span>${ gender ? gender : 'Not Available'
+        }</span>
                             </p>
                             <p class="text-lg font-bold">
                                 <i class="fa-solid fa-virus"></i>
-                                Price: <span >$${ price ? price : 'Not Available' }</span>
+                                Price: <span >$${ price ? price : 'Not Available'
+        }</span>
                             </p>
                             <p class="text-lg font-bold">
                                 <i class="fa-solid fa-dollar-sign"></i>
