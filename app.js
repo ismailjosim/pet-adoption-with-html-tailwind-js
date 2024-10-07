@@ -11,7 +11,10 @@ async function fetchCategories() {
 async function showCategories(categories) {
     const categoriesEl = document.getElementById('categories')
     categories.forEach((item) => {
-        categoriesEl.innerHTML += `<button onclick="fetchSingleCategories(this)" class="flex items-center justify-center gap-5 border-2 px-10 py-3 rounded-lg hover:rounded-full transition-transform ease-in-out">
+        categoriesEl.innerHTML += `<button
+        onclick="fetchSingleCategories(this)"
+        class="category_btn flex items-center justify-center gap-5 border-2 px-10 py-3 rounded-lg hover:rounded-full">
+
             <img src=${ item.category_icon } alt="">
                     <h2 class="text-2xl font-bold">${ item.category }</h2>
                 </button>`
@@ -22,6 +25,7 @@ const cardsContainerEl = document.getElementById('cards_container')
 let pets = []
 // single category data
 async function fetchSingleCategories(category) {
+
     cardsContainerEl.innerHTML = `
                 <div class="col-span-3 flex justify-center items-center">
                   <span class="loader"></span>
@@ -34,6 +38,8 @@ async function fetchSingleCategories(category) {
         )
         const data = await res.json()
         pets = data.data
+        category.classList.add("bg-primary/30", "rounded-full");
+        category.classList.remove("rounded-lg");
     } else {
         const res = await fetch(
             `https://openapi.programming-hero.com/api/peddy/pets`,
@@ -212,14 +218,13 @@ async function showDetails(id) {
 
 const sortBtnEl = document.getElementById('sort_btn')
 sortBtnEl.addEventListener('click', () => {
-    cardsContainerEl.innerHTML = `
+    if (pets.length > 0) {
+        cardsContainerEl.innerHTML = `
                 <div class="col-span-3 flex justify-center items-center">
                   <span class="loader"></span>
                 </div>`
 
-    if (pets.length > 0) {
         const sorted = pets.sort((a, b) => b.price - a.price)
-        console.log(sorted);
         displayCategoryData(sorted)
     }
 
