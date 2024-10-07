@@ -63,16 +63,7 @@ function displayCategoryData(pets) {
             </div>`
         } else {
             pets.forEach((item) => {
-                const {
-                    petId,
-                    breed,
-                    date_of_birth,
-                    price,
-                    image,
-                    gender,
-
-                    pet_name,
-                } = item || {}
+                const { petId, breed, date_of_birth, price, image, gender, pet_name } = item || {}
                 cardsContainerEl.innerHTML += `
         <div class="card bg-base-100 w-full shadow-xl">
                     <figure class="px-10 pt-10">
