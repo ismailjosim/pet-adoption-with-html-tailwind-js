@@ -19,7 +19,7 @@ async function showCategories(categories) {
 }
 
 const cardsContainerEl = document.getElementById('cards_container')
-
+let pets = []
 // single category data
 async function fetchSingleCategories(category) {
     cardsContainerEl.innerHTML = `
@@ -27,7 +27,7 @@ async function fetchSingleCategories(category) {
                   <span class="loader"></span>
                 </div>`
     const name = category.innerText
-    let pets
+
     if (name) {
         const res = await fetch(
             `https://openapi.programming-hero.com/api/peddy/category/${ name }`,
@@ -41,7 +41,10 @@ async function fetchSingleCategories(category) {
         const data = await res.json()
         pets = data.pets
     }
+    displayCategoryData(pets)
+}
 
+function displayCategoryData(pets) {
     setTimeout(() => {
         cardsContainerEl.innerHTML = ''
         if (pets.length === 0) {
@@ -57,13 +60,11 @@ async function fetchSingleCategories(category) {
                 const {
                     petId,
                     breed,
-                    category,
                     date_of_birth,
                     price,
                     image,
                     gender,
-                    pet_details,
-                    vaccinated_status,
+
                     pet_name,
                 } = item || {}
                 cardsContainerEl.innerHTML += `
@@ -117,6 +118,7 @@ async function fetchSingleCategories(category) {
         }
     }, 2000)
 }
+
 const likeContainerEl = document.getElementById('like_container')
 likeContainerEl.innerHTML = ''
 
@@ -207,6 +209,22 @@ async function showDetails(id) {
                         <h3 class="text-2xl font-bold">Details Information</h3>
                         <p class="pt-2">${ pet_details }</p>`
 }
+
+const sortBtnEl = document.getElementById('sort_btn')
+sortBtnEl.addEventListener('click', () => {
+    cardsContainerEl.innerHTML = `
+                <div class="col-span-3 flex justify-center items-center">
+                  <span class="loader"></span>
+                </div>`
+
+    if (pets.length > 0) {
+        const sorted = pets.sort((a, b) => b.price - a.price)
+        console.log(sorted);
+        displayCategoryData(sorted)
+    }
+
+
+})
 
 fetchCategories()
 fetchSingleCategories('')
