@@ -34,9 +34,16 @@ async function fetchSingleCategories(category) {
 
     setTimeout(() => {
         cardsContainerEl.innerHTML = "";
-        data.data.forEach(item => {
-            const { petId, breed, category, date_of_birth, price, image, gender, pet_details, vaccinated_status, pet_name } = item || {}
-            cardsContainerEl.innerHTML += `
+        if (data.data.length === 0) {
+            cardsContainerEl.innerHTML = `
+            <div class="col-span-3 flex gap-5 flex-col justify-center items-center">
+                    <img src="./assets/no-data.png" alt="">
+                    <h3 class="text-3xl font-black">No data found ⚠️</h3>
+            </div>`;
+        } else {
+            data.data.forEach(item => {
+                const { petId, breed, category, date_of_birth, price, image, gender, pet_details, vaccinated_status, pet_name } = item || {}
+                cardsContainerEl.innerHTML += `
         <div class="card bg-base-100 w-full shadow-xl">
                     <figure class="px-10 pt-10">
                         <img src=${ image }
@@ -76,7 +83,8 @@ async function fetchSingleCategories(category) {
                     </div>
                 </div>
         `;
-        });
+            });
+        }
     }, 2000);
 
 
