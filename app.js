@@ -95,11 +95,15 @@ async function fetchSingleCategories(category) {
                         </p>
                         <div class="divider"></div>
                         <div class="card-actions flex justify-between">
-                            <button class="btn px-5 bg-transparent text-secondary border-primary text-2xl"><i
+                            <button
+                            onclick="likePet(${ petId })"
+                             class="btn px-5 bg-transparent text-secondary border-primary text-2xl"><i
                                     class="fa-solid fa-thumbs-up"></i></button>
                             <button
+                            onclick="adoptPet(${ petId })"
                                 class="btn border border-primary bg-transparent text-primary font-bold px-5 text-xl">Adopt</button>
                             <button
+                            onclick="adoptPet(${ petId })"
                                 class="btn border border-primary bg-transparent text-primary font-bold px-5 text-xl">Details</button>
                         </div>
                     </div>
@@ -109,7 +113,51 @@ async function fetchSingleCategories(category) {
         }
     }, 2000)
 }
+async function likePet(id) {
+    console.log(pet)
+    // const {
+    //     petId,
+    //     breed,
+    //     category,
+    //     date_of_birth,
+    //     price,
+    //     image,
+    //     gender,
+    //     pet_details,
+    //     vaccinated_status,
+    //     pet_name,
+    // } = item || {}
+}
+async function adoptPet(pet) {
+    console.log(pet)
+    // const {
+    //     petId,
+    //     breed,
+    //     category,
+    //     date_of_birth,
+    //     price,
+    //     image,
+    //     gender,
+    //     pet_details,
+    //     vaccinated_status,
+    //     pet_name,
+    // } = item || {}
+}
+async function showDetails(pet) {
+    console.log(pet)
+    // const {
+    //     petId,
+    //     breed,
+    //     category,
+    //     date_of_birth,
+    //     price,
+    //     image,
+    //     gender,
+    //     pet_details,
+    //     vaccinated_status,
+    //     pet_name,
+    // } = item || {}
+}
 
 fetchCategories()
-
 fetchSingleCategories('')
