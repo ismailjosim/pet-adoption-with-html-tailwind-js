@@ -18,13 +18,23 @@ async function showCategories(categories) {
             <img src=${ item.category_icon } alt="">
                     <h2 class="text-2xl font-bold">${ item.category }</h2>
                 </button>`
+
     })
+}
+const activeClass = (selected) => {
+    console.log(selected);
 }
 
 const cardsContainerEl = document.getElementById('cards_container')
 let pets = []
 // single category data
 async function fetchSingleCategories(category) {
+    //* reset all button active state
+    const btn = document.querySelectorAll(".category_btn")
+    btn.forEach((btn) => {
+        btn.classList.remove("bg-primary/30", "rounded-full");
+        btn.classList.add("rounded-lg");
+    });
 
     cardsContainerEl.innerHTML = `
                 <div class="col-span-3 flex justify-center items-center">
@@ -40,6 +50,9 @@ async function fetchSingleCategories(category) {
         pets = data.data
         category.classList.add("bg-primary/30", "rounded-full");
         category.classList.remove("rounded-lg");
+
+
+
     } else {
         const res = await fetch(
             `https://openapi.programming-hero.com/api/peddy/pets`,
@@ -137,16 +150,16 @@ async function adoptPet(e) {
     let timeLeft = 3
     timerEl.innerText = timeLeft
 
-    const countdown = setInterval(() => {
-        timeLeft--
-        timerEl.innerText = timeLeft
-    }, 1000)
-
     setTimeout(() => {
         clearInterval(countdown)
         modal.close()
         e.setAttribute('disabled', true)
     }, 3000)
+
+    const countdown = setInterval(() => {
+        timeLeft--
+        timerEl.innerText = timeLeft
+    }, 1000)
 }
 
 async function showDetails(id) {
